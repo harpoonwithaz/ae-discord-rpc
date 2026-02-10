@@ -73,11 +73,15 @@ function parseAeContext(raw) {
 
 function buildActivity(context) {
     return {
-        details: "Project: " + context.projectName,
+        details: "Project: " + context.projectName.replace("%20", " "),
         state: "Comp: " + context.compName,
         largeImageKey: "adobe_after_effects_cc_icon_svg",
         largeImageText: "Adobe After Effects",
-        startTimestamp: activityStart.getTime()
+        startTimestamp: activityStart.getTime(),
+		buttons: [{
+			label: "Download Extension",
+			url: "https://github.com/harpoonwithaz/ae-discord-rpc"
+		}]
     };
 }
 
