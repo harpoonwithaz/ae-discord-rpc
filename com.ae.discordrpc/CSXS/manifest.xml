@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ExtensionManifest
-	Version="4.0"
+	Version="9.0"
 	ExtensionBundleId="com.ae.discordrpc"
 	ExtensionBundleVersion="1.0.0"
 	ExtensionBundleName="AE Discord RPC"
@@ -12,7 +12,7 @@
 
 	<ExecutionEnvironment>
 		<HostList>
-			<Host Name="AEFT" Version="13.0" />
+			<Host Name="AEFT" Version="17.0" />
 		</HostList>
 
 	<LocaleList>
@@ -20,7 +20,7 @@
 	</LocaleList>
 
 	<RequiredRuntimeList>
-		<RequiredRuntime Name="CSXS" Version="4.0" />
+		<RequiredRuntime Name="CSXS" Version="9.0" />
 	</RequiredRuntimeList>
 </ExecutionEnvironment>
 
