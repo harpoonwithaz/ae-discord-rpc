@@ -48,12 +48,12 @@
 
 				<Geometry>
 					<Size>
-						<Height>565</Height>
-						<Width>490</Width>
+						<Height>400</Height>
+						<Width>200</Width>
 					</Size>
 					<MinSize>
-						<Height>565</Height>
-						<Width>490</Width>
+						<Height>400</Height>
+						<Width>200</Width>
 					</MinSize>
 					<MaxSize>
 						<Height>565</Height>
