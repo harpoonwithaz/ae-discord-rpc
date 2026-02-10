@@ -2,7 +2,7 @@
 <ExtensionList>
     <Extension Id="com.ae.discordrpc.panel">
         <HostList>
-            <Host Name="AEFT" Port="9017" />
+            <Host Name="AEFT" Port="9099" />
         </HostList>
     </Extension>
 </ExtensionList>

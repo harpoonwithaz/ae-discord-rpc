@@ -4,24 +4,53 @@
         <meta charset="utf-8">
         <title>Discord RPC Test</title>
         <script src="../lib/CSInterface.js"></script>
-        <script src="../lib/discordrpc.js"></script>
+        <script>
+            window.AE_DISCORD_CLIENT_ID = "1469933901261701212";
+        </script>
+        <script src="./discordrpc.js"></script>
+        <style>
+            #log { white-space: pre-wrap; font-family: monospace; font-size: 12px; background: #111; color: #0f0; padding: 8px; height: 200px; overflow: auto; }
+        </style>
     </head>
     <body>
         <h3>AE Discord RPC</h3>
         <button id="test-btn">Refresh</button>
+        <button id="connect-btn">Connect</button>
+        <pre id="log"></pre>
 
         <script>
+            var csInterface;
+
+            function rpcLog(msg) {
+                var el = document.getElementById('log');
+                var line = '[' + new Date().toLocaleTimeString() + '] ' + msg + '\n';
+                el.textContent += line;
+                el.scrollTop = el.scrollHeight;
+            }
+            window.rpcLog = rpcLog;
+            window.onerror = function (msg, src, line, col) {
+                rpcLog('ERROR: ' + msg + ' @ ' + src + ':' + line + ':' + col);
+            };
+
             document.addEventListener('DOMContentLoaded', function () {
-                var csInterface = new CSInterface();
+                csInterface = new CSInterface();
 
                 if (window.initDiscordRpc) {
                     window.initDiscordRpc(csInterface);
+                    rpcLog('initDiscordRpc called');
                 }
 
                 document.getElementById('test-btn').onclick = function () {
                     csInterface.evalScript('getAeContext()', function (result) {
-                        alert('Response from After Effects: ' + result);
+                        rpcLog('getAeContext -> ' + result);
                     });
+                };
+
+                document.getElementById('connect-btn').onclick = function () {
+                    if (window.initDiscordRpc) {
+                        window.initDiscordRpc(csInterface);
+                        rpcLog('connect button pressed');
+                    }
                 };
             });
         </script>
