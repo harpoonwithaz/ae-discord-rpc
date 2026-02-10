@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Discord RPC Test</title>
+        <script src="../lib/CSInterface.js"></script>
+        <script src="../lib/discordrpc.js"></script>
+    </head>
+    <body>
+        <h3>AE Discord RPC</h3>
+        <button id="test-btn">Refresh</button>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var csInterface = new CSInterface();
+
+                if (window.initDiscordRpc) {
+                    window.initDiscordRpc(csInterface);
+                }
+
+                document.getElementById('test-btn').onclick = function () {
+                    csInterface.evalScript('getAeContext()', function (result) {
+                        alert('Response from After Effects: ' + result);
+                    });
+                };
+            });
+        </script>
+    </body>
+</html>

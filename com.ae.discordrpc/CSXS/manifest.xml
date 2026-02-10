@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionManifest
+	Version="4.0"
+	ExtensionBundleId="com.ae.discordrpc"
+	ExtensionBundleVersion="1.0.0"
+	ExtensionBundleName="AE Discord RPC"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<ExtensionList>
+		<Extension Id="com.ae.discordrpc.panel" Version="1.0" />
+	</ExtensionList>
+
+	<ExecutionEnvironment>
+		<HostList>
+			<Host Name="AEFT" Version="13.0" />
+		</HostList>
+
+	<LocaleList>
+		<Locale Code="All" />
+	</LocaleList>
+
+	<RequiredRuntimeList>
+		<RequiredRuntime Name="CSXS" Version="4.0" />
+	</RequiredRuntimeList>
+</ExecutionEnvironment>
+
+	<DispatchInfoList>
+		<Extension Id="com.ae.discordrpc.panel">
+			<DispatchInfo>
+
+			<Resources>
+				<MainPath>./client/index.html</MainPath>
+				<ScriptPath>./host/index.jsx</ScriptPath>
+				<CEFCommandLine>
+					<Parameter>--enable-nodejs</Parameter>
+					<Parameter>--mixed-context</Parameter>
+				</CEFCommandLine>
+			</Resources>
+
+			<Lifecycle>
+				<AutoVisible>true</AutoVisible>
+			</Lifecycle>
+
+			<UI>
+
+				<Type>Panel</Type>
+				<Menu>AE Minimal</Menu>
+
+				<Geometry>
+					<Size>
+						<Height>565</Height>
+						<Width>490</Width>
+					</Size>
+					<MinSize>
+						<Height>565</Height>
+						<Width>490</Width>
+					</MinSize>
+					<MaxSize>
+						<Height>565</Height>
+						<Width>490</Width>
+					</MaxSize>
+					
+				</Geometry>
+
+			</UI>
+		</DispatchInfo>
+	</Extension>
+</DispatchInfoList>
+</ExtensionManifest>
