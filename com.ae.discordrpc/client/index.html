@@ -8,18 +8,22 @@
             window.AE_DISCORD_CLIENT_ID = "1469933901261701212";
         </script>
         <script src="./discordrpc.js"></script>
-        <style>
-            #log { white-space: pre-wrap; font-family: monospace; font-size: 12px; background: #111; color: #0f0; padding: 8px; height: 200px; overflow: auto; }
-        </style>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        <h3>AE Discord RPC</h3>
-        <button id="test-btn">Refresh</button>
-        <button id="connect-btn">Connect</button>
+        <div class="divider">Status: <span id="status" class="status status-disconnected">Not connected</span></div>
+            
+        <div id="controls">
+            <button id="refresh-btn">Refresh</button>
+            <button id="connect-btn">Try Connect</button>
+        </div>
+        <div class="source-code">
+            Made by: <a href="https://github.com/harpoonwithaz/ae-discord-rpc">harpoonwithaz</a>
+        </div>
         <pre id="log"></pre>
-
         <script>
             var csInterface;
+            var OPEN_CONSOLE = false;
 
             function rpcLog(msg) {
                 var el = document.getElementById('log');
@@ -40,7 +44,7 @@
                     rpcLog('initDiscordRpc called');
                 }
 
-                document.getElementById('test-btn').onclick = function () {
+                document.getElementById('refresh-btn').onclick = function () {
                     csInterface.evalScript('getAeContext()', function (result) {
                         rpcLog('getAeContext -> ' + result);
                     });
