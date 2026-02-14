@@ -1,13 +1,16 @@
 name: Build Release Zips
 
 on:
-  release:
-    types:
-      - published
+  push:
+    tags:
+      - '*'
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
     steps:
       # Checkout the repository
       - uses: actions/checkout@v4
@@ -20,14 +23,16 @@ jobs:
 
       # Install production dependencies
       - name: Install Production Dependencies
-        run: npm ci --prefix com.ae.discordrpc --production
-
-      # Run the build script
-      - name: Run Build Script
-        run: pwsh ./scripts/build-pack.ps1
+        run: |
+          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            pwsh ./scripts/build-pack.ps1
+          else
+            bash ./scripts/build-pack-mac.sh
+          fi
 
       # Upload Windows ZIP
-      - name: Upload Windows ZIP
+      - name: Upload ZIP
+        if: matrix.os == 'windows-latest'
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url }}
@@ -36,28 +41,11 @@ jobs:
           asset_content_type: application/zip
 
       # Upload macOS ZIP
-      - name: Upload macOS ZIP
+      - name: Upload ZIP
+        if: matrix.os == 'macos-latest'
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./build/com.ae.discordrpc-mac-${{ github.ref_name }}.zip
           asset_name: com.ae.discordrpc-mac-${{ github.ref_name }}.zip
           asset_content_type: application/zip
-
-      # Upload Windows checksum
-      - name: Upload Windows Checksum
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./build/com.ae.discordrpc-windows-${{ github.ref_name }}.zip.sha256
-          asset_name: com.ae.discordrpc-windows-${{ github.ref_name }}.zip.sha256
-          asset_content_type: text/plain
-
-      # Upload macOS checksum
-      - name: Upload macOS Checksum
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./build/com.ae.discordrpc-mac-${{ github.ref_name }}.zip.sha256
-          asset_name: com.ae.discordrpc-mac-${{ github.ref_name }}.zip.sha256
-          asset_content_type: text/plain
