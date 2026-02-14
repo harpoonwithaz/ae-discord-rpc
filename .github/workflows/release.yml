@@ -18,6 +18,8 @@ jobs:
         run: ./scripts/build-pack.ps1
       - name: Upload ZIP as Release Asset (Windows)
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: build/com.ae.discordrpc-windows-${{ github.ref_name }}.zip
@@ -39,6 +41,8 @@ jobs:
         run: ./scripts/build-pack-mac.sh
       - name: Upload ZIP as Release Asset (macOS)
         uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: build/com.ae.discordrpc-mac-${{ github.ref_name }}.zip
