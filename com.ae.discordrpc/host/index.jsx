@@ -1,6 +1,5 @@
-// function testConnection() {
-//     return "After Effects 2020 is connected!";
-// }
+// Created by Oliver. (c) 2026. All rights reserved.
+// https://github.com/harpoonwithaz/ae-discord-rpc
 
 #target aftereffects
 #targetengine "aeDiscordRpc"

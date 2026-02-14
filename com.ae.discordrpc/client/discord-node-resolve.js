@@ -1,3 +1,5 @@
+// Created by Oliver. (c) 2026. All rights reserved.
+// https://github.com/harpoonwithaz/ae-discord-rpc
 /* Helper to resolve the `discord-rpc` module in CEP/node environments */
 
 var nodeRequire = null;

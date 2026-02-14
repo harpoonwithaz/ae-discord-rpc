@@ -1,0 +1,31 @@
+name: Build and Release Extension
+
+on:
+  push:
+    tags:
+      - 'v*' # Triggers only when you push a tag starting with 'v' (e.g., v1.0.0)
+
+jobs:
+  build:
+    runs-base: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install --production # Skips devDependencies to keep the zip small
+
+      - name: Create Zip Archive
+        run: zip -r extension-v${{ github.ref_name }}.zip . -x "*.git*" ".github/*" ".gitignore"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: extension-v${{ github.ref_name }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
