@@ -1,3 +1,14 @@
 com.ae.discordrpc/node_modules/
 
-SyncExtension.ps1
+MoveExtension.ps1
+deployment.txt
+
+# Local helper script (kept for development)
+
+# Build artifacts
+build/
+dist/
+
+# Release artifacts
+*.zip
+*.tar.gz
