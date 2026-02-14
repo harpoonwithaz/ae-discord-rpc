@@ -18,12 +18,12 @@
             <button id="connect-btn">Try Connect</button>
         </div>
         <div class="source-code">
-            Made by: <a href="https://github.com/harpoonwithaz/ae-discord-rpc">harpoonwithaz</a>
+              Made by: <a href="https://github.com/harpoonwithaz/ae-discord-rpc" id="source-link">harpoonwithaz</a>
         </div>
         <pre id="log"></pre>
         <script>
             var csInterface;
-            var OPEN_CONSOLE = false;
+            var OPEN_CONSOLE = true;
 
             function rpcLog(msg) {
                 var el = document.getElementById('log');
@@ -39,23 +39,32 @@
             document.addEventListener('DOMContentLoaded', function () {
                 csInterface = new CSInterface();
 
-                if (window.initDiscordRpc) {
-                    window.initDiscordRpc(csInterface);
-                    rpcLog('initDiscordRpc called');
+                // Always refresh status on load
+                if (window.refreshStatus) {
+                    window.refreshStatus();
                 }
 
                 document.getElementById('refresh-btn').onclick = function () {
-                    csInterface.evalScript('getAeContext()', function (result) {
-                        rpcLog('getAeContext -> ' + result);
-                    });
+                    if (window.refreshStatus) window.refreshStatus();
                 };
 
                 document.getElementById('connect-btn').onclick = function () {
                     if (window.initDiscordRpc) {
                         window.initDiscordRpc(csInterface);
-                        rpcLog('connect button pressed');
+                        rpcLog('connect/disconnect button pressed');
                     }
                 };
+
+                    // Make source code link open in default browser
+                    document.getElementById('source-link').onclick = function (e) {
+                        e.preventDefault();
+                        csInterface.openURLInDefaultBrowser(this.href);
+                    };
+
+                // Optionally, auto-attempt reconnect on load if previously connected
+                // if (window.getDiscordRpcStatus && window.getDiscordRpcStatus() === 'Disconnected') {
+                //     if (window.initDiscordRpc) window.initDiscordRpc(csInterface);
+                // }
             });
         </script>
     </body>
