@@ -31,8 +31,8 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./build/com.ae.discordrpc-windows-v${{ github.ref_name }}.zip
-          asset_name: com.ae.discordrpc-windows-v${{ github.ref_name }}.zip
+          asset_path: ./build/com.ae.discordrpc-windows-${{ github.ref_name }}.zip
+          asset_name: com.ae.discordrpc-windows-${{ github.ref_name }}.zip
           asset_content_type: application/zip
 
       # Upload macOS ZIP
@@ -40,8 +40,8 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./build/com.ae.discordrpc-mac-v${{ github.ref_name }}.zip
-          asset_name: com.ae.discordrpc-mac-v${{ github.ref_name }}.zip
+          asset_path: ./build/com.ae.discordrpc-mac-${{ github.ref_name }}.zip
+          asset_name: com.ae.discordrpc-mac-${{ github.ref_name }}.zip
           asset_content_type: application/zip
 
       # Upload Windows checksum
@@ -49,8 +49,8 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./build/com.ae.discordrpc-windows-v${{ github.ref_name }}.zip.sha256
-          asset_name: com.ae.discordrpc-windows-v${{ github.ref_name }}.zip.sha256
+          asset_path: ./build/com.ae.discordrpc-windows-${{ github.ref_name }}.zip.sha256
+          asset_name: com.ae.discordrpc-windows-${{ github.ref_name }}.zip.sha256
           asset_content_type: text/plain
 
       # Upload macOS checksum
@@ -58,6 +58,6 @@ jobs:
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./build/com.ae.discordrpc-mac-v${{ github.ref_name }}.zip.sha256
-          asset_name: com.ae.discordrpc-mac-v${{ github.ref_name }}.zip.sha256
+          asset_path: ./build/com.ae.discordrpc-mac-${{ github.ref_name }}.zip.sha256
+          asset_name: com.ae.discordrpc-mac-${{ github.ref_name }}.zip.sha256
           asset_content_type: text/plain
