@@ -24,28 +24,16 @@ jobs:
       # Install production dependencies
       - name: Install Production Dependencies
         run: |
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+          if ($env:RUNNER_OS -eq 'Windows') {
             pwsh ./scripts/build-pack.ps1
-          else
+          } else {
             bash ./scripts/build-pack-mac.sh
-          fi
+          }
 
-      # Upload Windows ZIP
-      - name: Upload ZIP
-        if: matrix.os == 'windows-latest'
-        uses: actions/upload-release-asset@v1
+      # Upload ZIP as artifact
+      - name: Upload ZIP as Artifact
+        uses: actions/upload-artifact@v3
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./build/com.ae.discordrpc-windows-${{ github.ref_name }}.zip
-          asset_name: com.ae.discordrpc-windows-${{ github.ref_name }}.zip
-          asset_content_type: application/zip
-
-      # Upload macOS ZIP
-      - name: Upload ZIP
-        if: matrix.os == 'macos-latest'
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./build/com.ae.discordrpc-mac-${{ github.ref_name }}.zip
-          asset_name: com.ae.discordrpc-mac-${{ github.ref_name }}.zip
-          asset_content_type: application/zip
+          name: ${{ matrix.os }}-zip
+          path: |
+            ${{ github.workspace }}/build/com.ae.discordrpc-${{ matrix.os == 'windows-latest' && 'windows' || 'mac' }}-${{ github.ref_name }}.zip
