@@ -42,26 +42,14 @@
 			</Lifecycle>
 
 			<UI>
-
 				<Type>Panel</Type>
 				<Menu>AE Minimal</Menu>
-
 				<Geometry>
 					<Size>
 						<Height>400</Height>
-						<Width>200</Width>
+						<Width>300</Width>
 					</Size>
-					<MinSize>
-						<Height>400</Height>
-						<Width>200</Width>
-					</MinSize>
-					<MaxSize>
-						<Height>565</Height>
-						<Width>490</Width>
-					</MaxSize>
-					
 				</Geometry>
-
 			</UI>
 		</DispatchInfo>
 	</Extension>
