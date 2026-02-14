@@ -18,6 +18,10 @@ jobs:
         with:
           node-version: '18'
 
+      # Install production dependencies
+      - name: Install Production Dependencies
+        run: npm ci --prefix com.ae.discordrpc --production
+
       # Run the build script
       - name: Run Build Script
         run: pwsh ./scripts/build-pack.ps1
