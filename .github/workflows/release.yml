@@ -2,56 +2,62 @@ name: Build Release Zips
 
 on:
   release:
-    types: [published]
+    types:
+      - published
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Checkout the repository
       - uses: actions/checkout@v4
+
+      # Setup Node.js
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      - name: Get version
-        id: get_version
-        run: echo "version=$(node -p \"require('./com.ae.discordrpc/package.json').version\")" >> $GITHUB_OUTPUT
+      # Install production dependencies
+      - name: Install Production Dependencies
+        run: npm ci --prefix com.ae.discordrpc --production
 
-      - name: Make build script executable
-        run: chmod +x scripts/build-pack.sh
+      # Run the build script
+      - name: Run Build Script
+        run: pwsh ./scripts/build-pack.ps1
 
-      - name: Run build
-        run: ./scripts/build-pack.sh
-
-      - name: Upload windows ZIP
+      # Upload Windows ZIP
+      - name: Upload Windows ZIP
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./com.ae.discordrpc-windows-v${{ steps.get_version.outputs.version }}.zip
-          asset_name: com.ae.discordrpc-windows-v${{ steps.get_version.outputs.version }}.zip
+          asset_path: ./build/com.ae.discordrpc-windows-v${{ github.ref_name }}.zip
+          asset_name: com.ae.discordrpc-windows-v${{ github.ref_name }}.zip
           asset_content_type: application/zip
 
-      - name: Upload mac ZIP
+      # Upload macOS ZIP
+      - name: Upload macOS ZIP
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./com.ae.discordrpc-mac-v${{ steps.get_version.outputs.version }}.zip
-          asset_name: com.ae.discordrpc-mac-v${{ steps.get_version.outputs.version }}.zip
+          asset_path: ./build/com.ae.discordrpc-mac-v${{ github.ref_name }}.zip
+          asset_name: com.ae.discordrpc-mac-v${{ github.ref_name }}.zip
           asset_content_type: application/zip
 
-      - name: Upload checksums
+      # Upload Windows checksum
+      - name: Upload Windows Checksum
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./com.ae.discordrpc-windows-v${{ steps.get_version.outputs.version }}.zip.sha256
-          asset_name: com.ae.discordrpc-windows-v${{ steps.get_version.outputs.version }}.zip.sha256
+          asset_path: ./build/com.ae.discordrpc-windows-v${{ github.ref_name }}.zip.sha256
+          asset_name: com.ae.discordrpc-windows-v${{ github.ref_name }}.zip.sha256
           asset_content_type: text/plain
 
-      - name: Upload checksums (mac)
+      # Upload macOS checksum
+      - name: Upload macOS Checksum
         uses: actions/upload-release-asset@v1
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./com.ae.discordrpc-mac-v${{ steps.get_version.outputs.version }}.zip.sha256
-          asset_name: com.ae.discordrpc-mac-v${{ steps.get_version.outputs.version }}.zip.sha256
+          asset_path: ./build/com.ae.discordrpc-mac-v${{ github.ref_name }}.zip.sha256
+          asset_name: com.ae.discordrpc-mac-v${{ github.ref_name }}.zip.sha256
           asset_content_type: text/plain

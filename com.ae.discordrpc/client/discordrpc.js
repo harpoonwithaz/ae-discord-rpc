@@ -1,5 +1,6 @@
+// Created by Oliver. (c) 2026. All rights reserved.
+// https://github.com/harpoonwithaz/ae-discord-rpc
 /* global CSInterface */
-
 
 var CLIENT_ID = (typeof window !== "undefined" && window.AE_DISCORD_CLIENT_ID)
     ? window.AE_DISCORD_CLIENT_ID
