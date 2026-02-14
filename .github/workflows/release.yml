@@ -31,6 +31,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+      - name: Make build-pack-mac.sh executable
+        run: chmod +x ./scripts/build-pack-mac.sh
       - name: Build and Package (macOS)
         shell: bash
         run: ./scripts/build-pack-mac.sh
