@@ -2,7 +2,7 @@
 <ExtensionManifest
 	Version="9.0"
 	ExtensionBundleId="com.ae.discordrpc"
-	ExtensionBundleVersion="1.0.4"
+	ExtensionBundleVersion="1.0.5"
 	ExtensionBundleName="AE Discord RPC"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
