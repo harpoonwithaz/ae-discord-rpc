@@ -32,7 +32,7 @@ jobs:
 
       # Upload ZIP as artifact
       - name: Upload ZIP as Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }}-zip
           path: |
