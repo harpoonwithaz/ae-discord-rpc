@@ -6,34 +6,36 @@ on:
       - '*'
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [windows-latest, macos-latest]
+  build-windows:
+    runs-on: windows-latest
     steps:
-      # Checkout the repository
       - uses: actions/checkout@v4
-
-      # Setup Node.js
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-
-      # Install production dependencies
-      - name: Install Production Dependencies
-        run: |
-          if ($env:RUNNER_OS -eq 'Windows') {
-            pwsh ./scripts/build-pack.ps1
-          } else {
-            bash ./scripts/build-pack-mac.sh
-          }
-
-      # Upload ZIP as artifact
+      - name: Build and Package (Windows)
+        shell: pwsh
+        run: ./scripts/build-pack.ps1
       - name: Upload ZIP as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.os }}-zip
-          path: |
-            ${{ github.workspace }}/build/com.ae.discordrpc-${{ matrix.os == 'windows-latest' && 'windows' || 'mac' }}-${{ github.ref_name }}.zip
+          name: windows-zip
+          path: build/com.ae.discordrpc-windows-v*.zip
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      - name: Build and Package (macOS)
+        shell: bash
+        run: ./scripts/build-pack-mac.sh
+      - name: Upload ZIP as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mac-zip
+          path: build/com.ae.discordrpc-mac-v*.zip

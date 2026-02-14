@@ -1,6 +1,7 @@
 com.ae.discordrpc/node_modules/
 
 MoveExtension.ps1
+actions.ps1
 deployment.txt
 
 # Local helper script (kept for development)
