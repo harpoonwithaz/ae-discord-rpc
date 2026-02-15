@@ -1,6 +1,11 @@
-# AE Discord RPC — Releases & Install
+# AE Discord RPC Rich Prec
 
 This repository produces simple ZIP-based installers for the After Effects CEP/Panel extension.
+
+## Download
+
+- Windows: [Latest Release](https://github.com/harpoonwithaz/ae-discord-rpc/releases/latest/download/com.ae.discordrpc-windows.zip)
+- Macos: [Latest Release](https://github.com/harpoonwithaz/ae-discord-rpc/releases/latest/download/com.ae.discordrpc-windows.zip)
 
 ## Installation
 

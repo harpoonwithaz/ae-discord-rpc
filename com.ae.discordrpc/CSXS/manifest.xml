@@ -43,7 +43,7 @@
 
 			<UI>
 				<Type>Panel</Type>
-				<Menu>AE Minimal</Menu>
+				<Menu>Discord Status</Menu>
 				<Geometry>
 					<Size>
 						<Height>400</Height>

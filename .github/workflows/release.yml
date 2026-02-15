@@ -23,7 +23,7 @@ jobs:
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: build/com.ae.discordrpc-windows-${{ github.ref_name }}.zip
-          asset_name: com.ae.discordrpc-windows-${{ github.ref_name }}.zip
+          asset_name: com.ae.discordrpc-windows.zip
           asset_content_type: application/zip
 
   build-macos:
@@ -46,5 +46,5 @@ jobs:
         with:
           upload_url: ${{ github.event.release.upload_url }}
           asset_path: build/com.ae.discordrpc-mac-${{ github.ref_name }}.zip
-          asset_name: com.ae.discordrpc-mac-${{ github.ref_name }}.zip
+          asset_name: com.ae.discordrpc-mac.zip
           asset_content_type: application/zip
