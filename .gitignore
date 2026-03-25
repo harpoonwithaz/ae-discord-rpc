@@ -13,3 +13,13 @@ dist/
 # Release artifacts
 *.zip
 *.tar.gz
+
+.vscode
+
+com.ae.discordrpc/lib/old (CEP_8.x).js
+com.ae.discordrpc/lib/old (CEP_9.x).js
+
+com.ae.discordrpc/bin
+
+# the old NodeJs version of ae discord rpc
+old

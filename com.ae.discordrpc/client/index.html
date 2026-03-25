@@ -1,74 +1,28 @@
-<!-- Created by Oliver. (c) 2026. All rights reserved.
-     https://github.com/harpoonwithaz/ae-discord-rpc -->
+<!-- // Created by Oliver. (c) 2026. All rights reserved.
+// https://github.com/harpoonwithaz/ae-discord-rpc -->
 
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Discord RPC Test</title>
-        <script src="../lib/CSInterface.js"></script>
-        <script>
-            window.AE_DISCORD_CLIENT_ID = "1469933901261701212";
-        </script>
-        <script src="./discordrpc.js"></script>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div class="divider">Status: <span id="status" class="status status-disconnected">Not connected</span></div>
-            
-        <div id="controls">
-            <button id="refresh-btn">Refresh</button>
-            <button id="connect-btn">Try Connect</button>
-        </div>
-        <div class="source-code">
-              Made by: <a href="https://github.com/harpoonwithaz/ae-discord-rpc" id="source-link">harpoonwithaz</a>
-        </div>
-        <pre id="log"></pre>
-        <script>
-            var csInterface;
-            var OPEN_CONSOLE = true;
 
-            function rpcLog(msg) {
-                var el = document.getElementById('log');
-                var line = '[' + new Date().toLocaleTimeString() + '] ' + msg + '\n';
-                el.textContent += line;
-                el.scrollTop = el.scrollHeight;
-            }
-            window.rpcLog = rpcLog;
-            window.onerror = function (msg, src, line, col) {
-                rpcLog('ERROR: ' + msg + ' @ ' + src + ':' + line + ':' + col);
-            };
+<head>
+    <meta charset="utf-8">
+    <title>Discord RPC Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-            document.addEventListener('DOMContentLoaded', function () {
-                csInterface = new CSInterface();
+<body>
+    <div class="divider">Status: <span id="status">Disconnected</span></div>
 
-                // Always refresh status on load
-                if (window.refreshStatus) {
-                    window.refreshStatus();
-                }
+    <div id="controls">
+        <button id="refresh-btn">Refresh</button>
+        <button id="connect-btn">Try Connect</button>
+    </div>
+    <div class="source-code">
+        Made by: <a href="https://github.com/harpoonwithaz/ae-discord-rpc" id="source-link">harpoonwithaz</a>
+    </div>
 
-                document.getElementById('refresh-btn').onclick = function () {
-                    if (window.refreshStatus) window.refreshStatus();
-                };
+    <script src="../lib/CSInterface.js"></script>
+    <script src="main.js"></script>
+</body>
 
-                document.getElementById('connect-btn').onclick = function () {
-                    if (window.initDiscordRpc) {
-                        window.initDiscordRpc(csInterface);
-                        rpcLog('connect/disconnect button pressed');
-                    }
-                };
-
-                    // Make source code link open in default browser
-                    document.getElementById('source-link').onclick = function (e) {
-                        e.preventDefault();
-                        csInterface.openURLInDefaultBrowser(this.href);
-                    };
-
-                // Optionally, auto-attempt reconnect on load if previously connected
-                // if (window.getDiscordRpcStatus && window.getDiscordRpcStatus() === 'Disconnected') {
-                //     if (window.initDiscordRpc) window.initDiscordRpc(csInterface);
-                // }
-            });
-        </script>
-    </body>
 </html>
