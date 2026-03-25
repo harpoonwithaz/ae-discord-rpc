@@ -1,50 +1,46 @@
-name: Build Release Zips
+name: Build and Release Extension
 
 on:
   release:
     types: [published]
 
 jobs:
-  build-windows:
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-      - name: Build and Package (Windows)
-        shell: pwsh
-        run: ./scripts/build-pack.ps1
-      - name: Upload ZIP as Release Asset (Windows)
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: build/com.ae.discordrpc-windows-${{ github.ref_name }}.zip
-          asset_name: com.ae.discordrpc-windows.zip
-          asset_content_type: application/zip
+  build-package-release:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write 
 
-  build-macos:
-    runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Go Environment
+        uses: actions/setup-go@v5
         with:
-          node-version: '18'
-      - name: Make build-pack-mac.sh executable
-        run: chmod +x ./scripts/build-pack-mac.sh
-      - name: Build and Package (macOS)
-        shell: bash
-        run: ./scripts/build-pack-mac.sh
-      - name: Upload ZIP as Release Asset (macOS)
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          go-version: '1.25.5'
+
+      - name: Compile Windows Binary
+        working-directory: ./com.ae.discordrpc
+        run: |
+          # Cross-compile for Windows 64-bit
+          GOOS=windows GOARCH=amd64 go build -o bin/discord-bridge.exe discord-rpc.go
+
+      - name: Clean Source Files
+        working-directory: ./com.ae.discordrpc
+        run: |
+          # Remove source files so they are not included in the final zip
+          rm discord-rpc.go
+          rm go.mod
+          rm go.sum
+
+      - name: Zip Extension
+        run: |
+          # Navigate into the extension folder and zip its contents
+          cd com.ae.discordrpc
+          zip -r ../com.ae.discordrpc.zip ./*
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
         with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: build/com.ae.discordrpc-mac-${{ github.ref_name }}.zip
-          asset_name: com.ae.discordrpc-mac.zip
-          asset_content_type: application/zip
+          files: com.ae.discordrpc.zip

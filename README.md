@@ -19,6 +19,6 @@
 ## Troubleshooting
 
 - If After Effects does not show the extension: restart After Effects; on window, check registry:
-  - `Computer\HKEY_CURRENT_USER\Software\Adobe\CSXS.9\PlayerDebugMode` is set to type `REG_SZ` with value `1`.
+  - `Computer\HKEY_CURRENT_USER\Software\Adobe\CSXS.8\PlayerDebugMode` is set to type `REG_SZ` with value `1`.
 - Connection issues or failing to display status:
-- Check `com.ae.discordrpc\discord-rpc-errors.log`
+- Check `com.ae.discordrpc\bin\bridge_errors.log`
