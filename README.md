@@ -1,6 +1,12 @@
 # After Effects Discord Rich Presence
 
-**CORRECTION:** This extension only works on only works for **After Effects 2020 and newer.** This is because the extension uses the CSXS 9 framework which is used by Node JS to connect to the discord client. I am working on a new version for older versions of after effects.
+![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/harpoonwithaz/ae-discord-rpc)
+
+**FIXED ISSUES** for windows. Please update to the [latest release](https://github.com/harpoonwithaz/ae-discord-rpc/releases/latest/download/com.ae.discordrpc-windows.zip).
+Diff: https://github.com/harpoonwithaz/ae-discord-rpc/pull/8
+
+**Full Changelog**: https://github.com/harpoonwithaz/ae-discord-rpc/compare/v1.0.6...v2.0.0
+
 
 ## Download
 
